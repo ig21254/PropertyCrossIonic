@@ -8,8 +8,23 @@ angular.module('search.controller', [
 
 	$scope.search = {
 		location :  "",
-		price : 0
+		rent : false,
+		sale: false
 	};
+
+	$scope.recentSearches = [
+		{
+			address: "Barcelona",
+			results: 12
+		},
+		{
+			address: "Castillejos 234, 08003",
+			results: 5
+		},
+		{
+			address: "Madrid",
+			results: 0
+		}];
 
 	$scope.shareProperty = function (property){
 
@@ -18,15 +33,19 @@ angular.module('search.controller', [
 		}, function(){});
 	};
 
-	$scope.getProperties = function(){
+	$scope.searchProperties = function(){
 
-		var data = {};
+		var data = {	
+						alquiler: 	$scope.search.rent,
+						venta: 		$scope.search.sale,
+						direccion: 	$scope.search.location
+					};
 
 		//TODO : get data from form
 		// don't look on position 
 
 
-		SearchSrvc.getProperties(data).then(function (response){
+		SearchSrvc.searchProperties(data).then(function (response){
 			//TODO : change 
 			console.log(response);
 			$scope.properties = response.datos;
@@ -37,7 +56,7 @@ angular.module('search.controller', [
 		},function (error){
 
 			//TODO :  translate errors
-			UtilSrvc.showMsg(error.data);
+			//UtilSrvc.showMsg(error.data);
 		});
 	};
 

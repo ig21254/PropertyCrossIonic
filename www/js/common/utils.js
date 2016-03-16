@@ -9,7 +9,7 @@ angular.module('util', [
 
 	return{
     //TODO : install Cordova Plugin
-		shareProperty: function (data){
+	shareProperty: function (data){
 			
       var message = data.titulo;
 			var subject = "";

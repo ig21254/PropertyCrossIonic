@@ -18,21 +18,26 @@ angular.module('search.service', [
      // direccion="venezuela 105, planta 1" 
      
      //  TODO : provide REST service 
-    getProperties: function(data) {
+    searchProperties: function(data) {
         
         var deferred = $q.defer();
 
-        var url = "propiedad/buscar";
+        var url = $rootScope.endPoint + "propiedad/buscar";
 
         var header = {
+            Authorization: 'Bearer ' + $rootScope.token
         };
 
-         $http({method: 'POST', url: url, data: data}).then(function (data) {  
+        $http({ method: 'POST', 
+                url: url, 
+                data: data, 
+                header: header
+              }).then(function (data) {  
             //deferred.resolve(data); 
             deferred.resolve(properties);
         },function (err){
-            //deferred.reject(err); 
-            deferred.reject(properties); 
+            deferred.reject(err); 
+            //deferred.reject(properties); 
         });
 
         return deferred.promise; 

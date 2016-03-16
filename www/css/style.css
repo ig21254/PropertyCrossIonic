@@ -12,6 +12,13 @@
 	color: #FFFFFF !important;
 }
 
+.toggle-left {
+    left: 16px !important;
+    position: relative !important;
+    top: 0px !important;
+    vertical-align: middle;
+}
+
 .subtitle {
   margin: 0 0 2em 0;
 }
