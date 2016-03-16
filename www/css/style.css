@@ -1,0 +1,62 @@
+/* Empty. Add your own CSS if you like */
+
+.PropertyCrossColor {
+	background-color: #72A700 !important;
+}
+
+.PropertyCrossColorForeground {
+  color: #72A700 !important;
+}
+
+.WhiteColorForeground {
+	color: #FFFFFF !important;
+}
+
+.subtitle {
+  margin: 0 0 2em 0;
+}
+.fancy {
+  line-height: 0.5;
+  text-align: center;
+}
+.fancy span {
+  display: inline-block;
+  position: relative;  
+}
+.fancy span:before,
+.fancy span:after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  text-shadow: none;
+  background-color: #72A700;
+  top: 0;
+  width: 600px;
+}
+.fancy span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+.fancy span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+.error {
+  padding: 10px 16px;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #555;
+  vertical-align: middle;
+}
+ 
+.error i {
+  font-size: 20px;
+  color: #B83E2C;  
+  vertical-align: middle;
+}
+
+.item-noborder {
+  border: 0px !important;
+}

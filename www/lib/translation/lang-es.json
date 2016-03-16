@@ -1,0 +1,9 @@
+{
+	"user": "Usuario",
+	"delete_user" : "Eliminar usuario",
+	"login_facebook" : "Haz login con Facebook",
+	"login_twitter" : "Haz login con Twitter",
+	"error_login" : "Ha sucedido un error",
+	"error_success" : "El login se ha completado!",
+	"not_connected" : "El dispositivo no está conectado."
+}

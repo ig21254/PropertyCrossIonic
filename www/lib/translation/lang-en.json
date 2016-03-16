@@ -1,0 +1,9 @@
+{
+	"user": "User",
+	"delete_user" : "Delete user",
+	"login_facebook" : "Facebook login",
+	"login_twitter" : "Twitter login",
+	"login_msg" : "Or use the login form",
+	"error_login" : "An error happened!!",
+	"error_success" : "The login was OK!"
+}

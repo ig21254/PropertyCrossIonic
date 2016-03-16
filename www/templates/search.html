@@ -1,0 +1,59 @@
+<ion-view view-title="Search Properties">
+  <ion-content>
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <a class="button button-clear" ng-click="geoLocalizeSearch()">
+        <i class="icon ion-android-locate PropertyCrossColorForeground"></i>
+      </a>
+        <input type="search" placeholder="City / Postal Code / Address" ng-model="search.location">
+      </label>
+    </div>
+    <span class="padding">
+      Use 
+      <i class="icon ion-android-locate PropertyCrossColorForeground"></i>
+      to geolocalize your search
+    </span>
+
+    <div class="row">
+      <div class="col">
+        <li class="item item-toggle item-noborder">
+          Rent
+          <label class="toggle toggle-balanced">
+            <input type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+             </div>
+          </label>
+        </li>
+      </div>
+      <div class="col">
+        <li class="item item-toggle item-noborder">
+          Sale
+          <label class="toggle toggle-balanced">
+            <input type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+             </div>
+          </label>
+        </li>
+      </div>
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-balanced" ng-click="getProperties()">Search</button>
+    </div>
+
+    <!-- todos -->
+    <div class="list">
+      <h3 class="padding PropertyCrossColorForeground"> Recent Searches </h3>
+      <a class="item item-thumbnail-left" ng-repeat="property in properties" ng-click="shareProperty(property)">
+        <h2>{{property.titulo}}</h2>
+        <p>{{property.precio}}€</p>
+      </a>
+    </div>
+
+<!-- 
+  <span> Buscar viviendas con precio menor de {{search.price | currency:"EU€"}}</span> -->
+  </ion-content>
+</ion-view>
