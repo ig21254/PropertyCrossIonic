@@ -67,3 +67,25 @@
 .item-noborder {
   border: 0px !important;
 }
+
+.result-content {
+    width: 400px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.result-content img {
+    margin-right: 15px;
+    float: left;
+    height: 90px;
+    width: 150px;
+}
+
+.details-image {
+  width: 100%;
+  height: auto;
+}
+
+.details-content {
+  padding: 16px;
+}

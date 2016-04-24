@@ -3,7 +3,8 @@
 
 angular.module('login.controller', ['login.controller'])
 
-.controller('LoginCtrl',['$rootScope', '$scope', '$state', 'LoginSrvc', 'StorageSrvc', '$translate', function ($rootScope, $scope, $state, LoginSrvc, StorageSrvc, $translate) {
+.controller('LoginCtrl',['$rootScope', '$scope', '$state', 'LoginSrvc', 'StorageSrvc', '$translate', 
+	function ($rootScope, $scope, $state, LoginSrvc, StorageSrvc, $translate) {
 
 	$scope.login = {
 		username : "",
@@ -20,6 +21,7 @@ angular.module('login.controller', ['login.controller'])
 			password : $scope.login.password
 		};
 
+		console.log("Login");
 		LoginSrvc.login(data, function (result){
 
 			//TODO : save user data
@@ -28,10 +30,12 @@ angular.module('login.controller', ['login.controller'])
 			//TODO : use Ionic components
 			alert($translate.instant('error_success'));
 
+			console.log("Go search");
+			closeLogin();
 			$state.go('app.search', {});
 
 		}, function (error){	
-			alert($translate.instant(error));
+			alert(error);
 		});
 	};
 
@@ -48,8 +52,25 @@ angular.module('login.controller', ['login.controller'])
 	};
 
 	$scope.register = function(){
-		
-		console.log("Register!");
+	
+		console.log("Register!");	
+		var data = {
+			client_id : $rootScope.client_id,
+			client_secret : $rootScope.client_secret,
+			username : $scope.login.username,
+			password : $scope.login.password
+		};
+
+		LoginSrvc.register(data, function (result){
+
+			//TODO : use Ionic components
+			alert($translate.instant('error_success'));
+			userLogin();
+			$state.go('app.search', {});
+
+		}, function (error){	
+			alert($translate.instant(error));
+		});
 	};
 
 }]);

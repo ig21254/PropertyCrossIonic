@@ -15,22 +15,41 @@ angular.module('login.service', [
     // client_id=android 
     // client_secret=SomeRandomCharsAndNumbers 
     // username="hola.caracola@gmail.com" 
-    //password="h0lAcarac0l$1"
+    // password="h0lAcarac0l$1"
 		login: function (data, success, errror){
 
         var url = $rootScope.endPoint + "oauth/token";
         var headers = null;
         data.grant_type="password";
         
+        //if (!$rootScope.serverDown) {
+          UtilSrvc.rest("POST", url, headers, data).then(function (result){
+            console.log(result);
+            $rootScope.token = result.access_token;
+            console.log($rootScope.token);
+          },function (err){
+            console.log(err);
+          });  
+        /*} else {
+          $rootScope.token = "result.access_token";
+        }*/
+        
+		},
 
-        UtilSrvc.rest("POST", url, headers, data).then(function (result){
-          console.log(result);
-          $rootScope.token = result.access_token;
-          console.log($rootScope.token);
-        },function (err){
-          console.log(err);
-        });
-		}	
+    register: function (data, success, errror){
+
+        var url = $rootScope.endPoint + "register/signup";
+        var headers = null;
+      
+        if (!$rootScope.serverDown) {
+          UtilSrvc.rest("POST", url, headers, data).then(function (result){
+            console.log("Register OK");
+          },function (err){
+            console.log(err);
+          });
+        } 
+    }
+
 	};
 });
 })();

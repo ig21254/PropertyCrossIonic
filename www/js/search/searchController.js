@@ -26,13 +26,6 @@ angular.module('search.controller', [
 			results: 0
 		}];
 
-	$scope.shareProperty = function (property){
-
-		UtilSrvc.shareProperty(property).then(function (res){
-			console.log(res);
-		}, function(){});
-	};
-
 	$scope.searchProperties = function(){
 
 		var data = {	
@@ -44,14 +37,14 @@ angular.module('search.controller', [
 		//TODO : get data from form
 		// don't look on position 
 
-
+		console.log("Search");
 		SearchSrvc.searchProperties(data).then(function (response){
 			//TODO : change 
 			console.log(response);
 			$scope.properties = response.datos;
 
 			//TODO : redirect to result page
-			//$state.go('tab.result');
+			$state.go('app.results');
 
 		},function (error){
 

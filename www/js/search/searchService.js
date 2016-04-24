@@ -22,7 +22,10 @@ angular.module('search.service', [
         
         var deferred = $q.defer();
 
-        var url = $rootScope.endPoint + "propiedad/buscar";
+        //var url = $rootScope.endPoint + "propiedad/buscar";
+
+        //URL backup para cuando el servicio de OpenTrends no funciona.
+        var url = "http://mdpa-android.getsandbox.com/propiedad/buscar/"
 
         var header = {
             Authorization: 'Bearer ' + $rootScope.token
@@ -33,8 +36,8 @@ angular.module('search.service', [
                 data: data, 
                 header: header
               }).then(function (data) {  
-            //deferred.resolve(data); 
-            deferred.resolve(properties);
+            deferred.resolve(data); 
+            //deferred.resolve(properties);
         },function (err){
             deferred.reject(err); 
             //deferred.reject(properties); 

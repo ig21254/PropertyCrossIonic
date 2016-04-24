@@ -1,13 +1,15 @@
 
 angular.module('user', ['login.controller', 'account.controller', 'login.service']);
-angular.module('search', ['search.controller', 'search.service']);
+angular.module('search', ['search.controller', 'search.service', 'results.controller', 'details.controller']);
 angular.module('starter', ['starter.controllers']);
+angular.module('favorites', ['favorites.controller']);
 angular.module('mdpa', 
 [
 'ionic',
 'starter',
 'user',
 'search',
+'favorites',
 'storage',
 'util',
 'ngCordova',
@@ -34,6 +36,8 @@ angular.module('mdpa',
      $rootScope.client_id = 'android';
      $rootScope.client_secret = "SomeRandomCharsAndNumbers"; 
      $rootScope.token = null;
+
+     $rootScope.serverDown = true;
 
     //TODO  : set up FB connect component
     // check : http://ccoenraets.github.io/ionic-tutorial/ionic-facebook-integration.html
@@ -79,7 +83,7 @@ angular.module('mdpa',
     views: {
       'menuContent': {
         templateUrl: 'templates/favorites.html',
-        controller: 'FavoritesCtrl'
+        controller: 'FavsCtrl'
       }
     }
   })  
@@ -90,6 +94,26 @@ angular.module('mdpa',
       'menuContent': {
         templateUrl: 'templates/search.html',
         controller: 'SearchCtrl'
+      }
+    }
+  })
+
+  .state('app.results', {
+    url: '/results',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/searchResult.html',
+        controller: 'ResultsCtrl'
+      }
+    }
+  })
+
+  .state('app.details', {
+    url: '/details',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/propertyDetails.html',
+        controller: 'DetailsCtrl'
       }
     }
   });

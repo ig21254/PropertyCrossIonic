@@ -1,0 +1,25 @@
+<ion-view view-title="Property details" ng-controller="DetailsCtrl">
+  <ion-content>
+    <img class="details-image" ng-src="img/{{getFlatImage()}}">
+    <div class="details-content">
+      <p>Last cheched on {{parseDate(details.anteriorConsulta)}}</p>
+      <h2>{{details.titulo}}</h2>
+      <h5>{{details.direccion}}</h5>
+      <h5 ng-if="isRent()">For rent</h5>
+      <h5 ng-if="!isRent()">For sale</h5>
+      <p>{{details.descripcion}}
+      <h4>{{details.precio}} €</h4>
+    </div>
+
+    <div class="list">
+      <h3 class="padding PropertyCrossColorForeground"> Comments </h3>
+      <div class="item " ng-repeat="comment in comments">
+        <h4>{{comment.autor}}</h4>
+        <p>On {{parseDate(comment.fecha)}}</p>
+        <p>{{comment.texto}}</p>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>
