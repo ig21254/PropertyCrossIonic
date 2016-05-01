@@ -7,7 +7,8 @@
       <h5>{{details.direccion}}</h5>
       <h5 ng-if="isRent()">For rent</h5>
       <h5 ng-if="!isRent()">For sale</h5>
-      <button class="button button-balanced icon-left ion-star" ng-click="addFavorite()">Add to favorites</button>
+      <button ng-if="!details.favorito" class="button button-balanced icon-left ion-star" ng-click="addFavorite()">Add to favorites</button>
+      <button ng-if="details.favorito" class="button button-assertive icon-left ion-star" ng-click="removeFavorite()">Remove from favorites</button>
       <p>{{details.descripcion}}
       <h4>{{details.precio}} €</h4>
     </div>

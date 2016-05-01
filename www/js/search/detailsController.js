@@ -91,7 +91,21 @@ angular.module('details.controller', [
         } else {
             favorites.push($scope.details);
         }
-        console.log(favorites);
+        //console.log(favorites);
+        $scope.details.favorito = true;
+        StorageSrvc.setItem('favorites', favorites);
+    }
+
+    $scope.removeFavorite = function() {
+        var favorites = StorageSrvc.getItem('favorites');
+        if (!favorites) {
+            favorites = [];
+        } else {
+            var index = findWithAttr(favorites, 'idPropiedad', $scope.details.idPropiedad);
+            console.log("Index: "+index);
+            favorites.splice(index, 1);
+        }
+        $scope.details.favorito = false;
         StorageSrvc.setItem('favorites', favorites);
     }
 
@@ -107,6 +121,14 @@ angular.module('details.controller', [
             } else {
                 console.log("NOT FAVORITE");
                 $scope.details.favorito = false;
+            }
+        }
+    }
+
+    function findWithAttr(array, attr, value) {
+        for(var i = 0; i < array.length; i += 1) {
+            if(array[i][attr] === value) {
+                return i;
             }
         }
     }
