@@ -16,38 +16,42 @@ angular.module('login.service', [
     // client_secret=SomeRandomCharsAndNumbers 
     // username="hola.caracola@gmail.com" 
     // password="h0lAcarac0l$1"
-		login: function (data, success, errror){
+		login: function (data, success, error){
 
         var url = $rootScope.endPoint + "oauth/token";
         var headers = null;
         data.grant_type="password";
         
-        //if (!$rootScope.serverDown) {
+        // Bypass per poder fer alguna cosa. El servidor no permet fer connexions HTTP.
+        if (!$rootScope.serverDown) {
           UtilSrvc.rest("POST", url, headers, data).then(function (result){
             console.log(result);
             $rootScope.token = result.access_token;
             console.log($rootScope.token);
+            success();
           },function (err){
             console.log(err);
-          });  
-        /*} else {
+            error(err);
+          });
+        } else {
+          console.log("SERVER_DOWN");
           $rootScope.token = "result.access_token";
-        }*/
+          success();
+        }
         
 		},
 
-    register: function (data, success, errror){
+    register: function (data, success, error){
 
         var url = $rootScope.endPoint + "register/signup";
         var headers = null;
       
-        if (!$rootScope.serverDown) {
-          UtilSrvc.rest("POST", url, headers, data).then(function (result){
-            console.log("Register OK");
-          },function (err){
-            console.log(err);
-          });
-        } 
+        UtilSrvc.rest("POST", url, headers, data).then(function (result){
+          console.log("Register OK");
+          console.log(result);
+        },function (err){
+          console.log(err);
+        });
     }
 
 	};

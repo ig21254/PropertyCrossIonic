@@ -1,9 +1,8 @@
 (function() {
 'use strict';
 
-angular.module('search.controller', [
-	'search.controller'
-])
+angular.module('search.controller', ['search.controller'])
+
 .controller('SearchCtrl',['$rootScope', '$scope', '$state', 'SearchSrvc', 'UtilSrvc', function ($rootScope, $scope, $state, SearchSrvc, UtilSrvc) {
 
 	$scope.search = {
@@ -13,7 +12,7 @@ angular.module('search.controller', [
 	};
 
 	$scope.recentSearches = [
-		{
+		/*{
 			address: "Barcelona",
 			results: 12
 		},
@@ -24,30 +23,28 @@ angular.module('search.controller', [
 		{
 			address: "Madrid",
 			results: 0
-		}];
+		}*/];
 
 	$scope.searchProperties = function(){
 
 		var data = {	
-						alquiler: 	$scope.search.rent,
-						venta: 		$scope.search.sale,
-						direccion: 	$scope.search.location
-					};
+			alquiler: 	$scope.search.rent,
+			venta: 		$scope.search.sale,
+			direccion: 	$scope.search.location
+		};
 
 		//TODO : get data from form
 		// don't look on position 
 
-		console.log("Search");
+		//console.log("Search");
 		SearchSrvc.searchProperties(data).then(function (response){
-			//TODO : change 
-			console.log(response);
-			$scope.properties = response.datos;
+			var search = {address: $scope.search.location, results: response.data.datos.length};
+			$scope.recentSearches.push(search);
+			//console.log(response);
 
-			//TODO : redirect to result page
 			$state.go('app.results');
-
+			$rootScope.$broadcast('UPDATE_SEARCH', response.data.datos);
 		},function (error){
-
 			//TODO :  translate errors
 			//UtilSrvc.showMsg(error.data);
 		});

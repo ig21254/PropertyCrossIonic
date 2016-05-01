@@ -8,17 +8,35 @@ angular.module('account.controller', [
 	//TODO : implement photo getter from Cordova (optional)
 	// register method with data from form
 
-	$scope.removeUser = function(){
+	$scope.user = {
+		username: "",
+		password: "",
+		email: "",
+		firstname: "",
+		lastname: ""
+	}
+
+	$scope.logout = function(){
 		StorageSrvc.deleteItem('user');
-		$state.go('login',{});
+		StorageSrvc.deleteItem('user_profile');
+		$state.go('app.search', {});
 	};
 
-	$scope.init= function(){
+	$scope.saveInfo = function(){
+		StorageSrvc.setItem('user_profile', $scope.user);
+	};
 
-		if (StorageSrvc.getItem('user') ){
-			$scope.user = StorageSrvc.getItem('user');
+	$scope.init = function(){
+		var user = StorageSrvc.getItem('user');
+		if (user){
+			if (StorageSrvc.getItem('user_profile')) {
+				$scope.user = StorageSrvc.getItem('user_profile');
+			} else {
+				$scope.user.username = user.username;
+				$scope.user.password = user.password;	
+			}
 		}else{
-			$state.go('login',{});
+			$state.go('app.search', {});
 		}
 	};
 	$scope.init();

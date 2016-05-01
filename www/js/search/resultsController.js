@@ -4,9 +4,9 @@
 angular.module('results.controller', [
 	'results.controller'
 ])
-.controller('ResultsCtrl',['$rootScope', '$scope', '$state', 'SearchSrvc', 'UtilSrvc', function ($rootScope, $scope, $state, SearchSrvc, UtilSrvc) {
+.controller('ResultsCtrl',['$rootScope', '$scope', '$state', '$timeout', 'SearchSrvc', 'UtilSrvc', function ($rootScope, $scope, $state, $timeout, SearchSrvc, UtilSrvc) {
 
-	$scope.datos = [
+	/*$scope.datos = [
 		{
             alquiler: true, 
             favorito: false, 
@@ -50,8 +50,29 @@ angular.module('results.controller', [
             precio: 30000.25, 
             titulo: "Castillejos 394", 
             venta: true
-        }];
+        }];*/
 
+    //console.log($scope.datos);
+    $scope.datos = [];
+
+    /*$scope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };*/
+
+    $scope.$on('UPDATE_SEARCH', function(event, response) {
+        $scope.$apply(function(){
+            $scope.datos = response;    
+            console.log($scope.datos);
+        })
+    });
+    
 	$scope.criterio = {
         alquiler: true, 
         latitud: 41.412479, 
@@ -64,15 +85,12 @@ angular.module('results.controller', [
     };
 
     $scope.getFlatImage = function(){
-        var value = Math.floor((Math.random() * 10) % 4 + 1);
-        console.log("flat_sample_image_"+value+".png");
-        return "flat_sample_image_"+value+".png";
+        return UtilSrvc.getImage();
     }
 
     $scope.viewDetails = function(property) {
         $state.go('app.details');
+        $rootScope.$broadcast('VIEW_DETAILS', property);
     }
-
-	
 }]);
 })();

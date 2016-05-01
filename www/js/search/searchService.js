@@ -7,6 +7,8 @@ angular.module('search.service', [
 .service('SearchSrvc', function ($rootScope, $http, $q) {
   // Might use a resource here that returns a JSON array
 
+  var properties = [];
+
   return {
 
      // http POST 
@@ -31,19 +33,21 @@ angular.module('search.service', [
             Authorization: 'Bearer ' + $rootScope.token
         };
 
-        $http({ method: 'POST', 
+        return $http({ method: 'POST', 
                 url: url, 
                 data: data, 
                 header: header
-              }).then(function (data) {  
-            deferred.resolve(data); 
-            //deferred.resolve(properties);
-        },function (err){
-            deferred.reject(err); 
-            //deferred.reject(properties); 
-        });
+              });/*.then(function (data) {
+                properties = data.data.datos;
+                console.log(properties);
+                deferred.resolve(data); 
+                //deferred.resolve(properties);
+              },function (err){
+                deferred.reject(err); 
+                //deferred.reject(properties); 
+              });
 
-        return deferred.promise; 
+        return deferred.promise; */
     },
     // http GET 
     // https://push.opentrends.net:8100/mdpa/api/propiedad/id-de-la-propiedad
@@ -72,6 +76,10 @@ angular.module('search.service', [
        });
 
        return deferred.promise;        
+    },
+
+    getProperties: function() {
+      return properties;
     }
   };
 });

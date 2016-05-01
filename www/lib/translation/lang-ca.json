@@ -1,9 +1,10 @@
 {
 	"user": "Usuari",
-	"delete_user" : "Esborrar Usuari",
+	"delete_user" : "Desconnectar",
 	"login_facebook" : "Accés amb Facebook",
 	"login_twitter" : "Accés amb Twitter",
 	"login_msg" : "O utilitza l'accés per formulari.",
 	"error_login" : "Hi ha hagut un error!!",
-	"error_success" : "Has accedit correctament!"
+	"error_success" : "Has accedit correctament!",
+	"save_info" : "Guardar perfil" 
 }

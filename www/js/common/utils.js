@@ -62,6 +62,15 @@ angular.module('util', [
 			}*/
 
 			return deferred.promise; 
+		},
+
+		getImage : function() {
+			var images = ["flat_sample_image_1.png",
+						  "flat_sample_image_2.png",
+						  "flat_sample_image_3.png",
+						  "flat_sample_image_4.png"]
+			//return images[Math.floor(Math.random() * images.length)];
+			return images[0];
 		}
 	};
 });

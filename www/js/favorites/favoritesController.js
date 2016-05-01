@@ -4,10 +4,10 @@
 angular.module('favorites.controller', [
 	'favorites.controller'
 ])
-.controller('FavsCtrl',['$rootScope', '$scope', '$state', 'SearchSrvc', 'UtilSrvc', function ($rootScope, $scope, $state, SearchSrvc, UtilSrvc) {
+.controller('FavsCtrl',['$rootScope', '$scope', '$state', 'SearchSrvc', 'UtilSrvc', 'StorageSrvc', function ($rootScope, $scope, $state, SearchSrvc, UtilSrvc, StorageSrvc) {
 
 	$scope.favorites = [
-		{
+		/*{
             alquiler: true, 
             favorito: false, 
             idPropiedad: "id-propiedad-X", 
@@ -50,8 +50,13 @@ angular.module('favorites.controller', [
             precio: 30000.25, 
             titulo: "Castillejos 394", 
             venta: true
-        }];
+        }*/];
 
+    $scope.init = function() {
+        $scope.favorites = StorageSrvc.getItem('favorites');
+        console.log($scope.favorites);
+    }
+    $scope.init();
 	
 }]);
 })();

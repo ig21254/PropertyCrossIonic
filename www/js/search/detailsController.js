@@ -4,7 +4,8 @@
 angular.module('details.controller', [
 	'details.controller'
 ])
-.controller('DetailsCtrl',['$rootScope', '$scope', '$state', 'SearchSrvc', 'UtilSrvc', function ($rootScope, $scope, $state, SearchSrvc, UtilSrvc) {
+.controller('DetailsCtrl',['$rootScope', '$scope', '$state', '$filter', '$timeout', 'SearchSrvc', 'UtilSrvc', 'StorageSrvc', 
+    function ($rootScope, $scope, $state, $filter, $timeout, SearchSrvc, UtilSrvc, StorageSrvc) {
 
 	$scope.details = {
         alquiler: false, 
@@ -40,10 +41,32 @@ angular.module('details.controller', [
         }
     ];
 
+    $scope.comment = {
+            autor: "Annonymous", 
+            fecha: 1445430985947, 
+            texto: ""
+        }
+
+    $scope.$on('VIEW_DETAILS', function(event, response) {
+
+        $scope.$apply(function(){
+            $scope.details.alquiler = response.alquiler;
+            $scope.details.favorito = response.favorito;
+            $scope.details.idPropiedad = response.idPropiedad; 
+            $scope.details.latitud = response.latitud;
+            $scope.details.longitud = response.longitud;
+            $scope.details.metros = response.metros;
+            $scope.details.precio = response.precio;
+            $scope.details.titulo = response.titulo; 
+            $scope.details.venta = response.venta;
+            console.log($scope.details);
+
+            $scope.init();
+        });
+    });
+
     $scope.getFlatImage = function(){
-        var value = Math.floor((Math.random() * 10) % 4 + 1);
-        console.log("flat_sample_image_"+value+".png");
-        return "flat_sample_image_"+value+".png";
+        return UtilSrvc.getImage();
     }
 
     $scope.parseDate = function(date) {
@@ -55,6 +78,39 @@ angular.module('details.controller', [
         return $scope.details.alquiler;
     };
 
-	
+    $scope.addComment = function(){
+        var comment = {fecha: new Date, autor: "Annonymous", texto: $scope.comment.texto};
+        $scope.comments.push(comment);
+        $scope.comment.texto = "";
+    }
+
+    $scope.addFavorite = function() {
+        var favorites = StorageSrvc.getItem('favorites');
+        if (!favorites) {
+            favorites = [$scope.details];
+        } else {
+            favorites.push($scope.details);
+        }
+        console.log(favorites);
+        StorageSrvc.setItem('favorites', favorites);
+    }
+
+    $scope.init = function() {
+        var favorites = StorageSrvc.getItem('favorites');
+        if (!favorites) {
+            console.log("NOT FAVORITE");
+            $scope.details.favorito = false;
+        } else {
+            if($filter('filter')(favorites, {idPropiedad: $scope.details.idPropiedad})[0]) {
+                console.log("FAVORITE");
+                $scope.details.favorito = true;
+            } else {
+                console.log("NOT FAVORITE");
+                $scope.details.favorito = false;
+            }
+        }
+    }
+    
+
 }]);
 })();
