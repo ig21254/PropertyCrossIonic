@@ -69,7 +69,7 @@ angular.module('results.controller', [
     $scope.$on('UPDATE_SEARCH', function(event, response) {
         $scope.$apply(function(){
             $scope.datos = response;    
-            console.log($scope.datos);
+            //console.log($scope.datos);
         })
     });
     
